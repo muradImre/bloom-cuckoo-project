@@ -4,3 +4,8 @@ __pycache__/
 .DS_Store
 results/*.csv
 results/*.png
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env
