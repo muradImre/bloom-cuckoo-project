@@ -1,15 +1,50 @@
-Murad Imre - mi15
-Probabilistic Filter Experiments
-This project runs experiments on Bloom, Counting Bloom, and Cuckoo filters under Zipf-distributed query workloads.
+# Network Cache Lookup Optimization
 
-Setup and Run
-Create a virtual environment, activate it, install the dependencies, and run the experiments using Python. The experiments are executed with main.py using alpha values of 1.0 and 1.2, a target false positive rate of 0.01, and results written to the results directory. The same experiment can also be run using the provided Makefile.
+This project compares Bloom, Counting Bloom, and Cuckoo filters as cache
+pre-filters under Zipf-distributed query workloads.
 
-Output
-All results are written to the results directory. 
+## Experiments
 
-Experiments
-Experiment 1 measures memory usage versus false positive rate. Experiment 2 evaluates lookup latency under Zipf-distributed workloads. Experiment 3 measures end-to-end throughput with and without a filter.
+- Memory usage versus false-positive rate
+- Lookup latency and backend lookup frequency
+- End-to-end throughput against a no-filter baseline
 
-Notes
-Memory usage is computed theoretically in bits per key. Backend misses are modeled using a fixed busy-loop cost. Zipf workloads include both members and non-members.
+The full methodology, results, and conclusions are available in the
+[project report](project-report.pdf).
+
+## Setup
+
+```sh
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Run
+
+Run the default experiment suite:
+
+```sh
+make run
+```
+
+Alternatively, invoke the script directly and customize its parameters:
+
+```sh
+python main.py \
+  --alphas 1.0,1.2 \
+  --fpr_targets 0.01 \
+  --results_dir results
+```
+
+Generated CSV files and plots are written to `results/`.
+
+## Methodology notes
+
+- Memory usage is calculated theoretically in bits per key.
+- Backend misses are modeled with a fixed busy-loop cost.
+- Workloads include both member and non-member queries.
+
+## Author
+
+Murad Imre (`mi15`)
